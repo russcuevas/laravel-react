@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function AdminDashboard() {
-    const [setAuthenticated] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -11,9 +10,7 @@ function AdminDashboard() {
         if (token) {
             const userRole = localStorage.getItem('user_role');
 
-            if (userRole === 'admin') {
-                setAuthenticated(true);
-            } else {
+            if (userRole !== 'admin') {
                 navigate('/login');
             }
         } else {
@@ -24,8 +21,6 @@ function AdminDashboard() {
     const handleLogout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('user_role');
-        setAuthenticated(false);
-
         navigate('/login');
     };
 

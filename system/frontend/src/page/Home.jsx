@@ -18,7 +18,6 @@ function Home() {
         localStorage.removeItem('token');
         localStorage.removeItem('user_role');
         setAuthenticated(false);
-
         navigate('/login');
     };
 

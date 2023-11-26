@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import ForgotPasswordModal from './modal/ForgotPassword';
 
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -70,8 +72,12 @@ function Login() {
         }
     };
 
+    const handleForgotPassword = () => {
+        setShowModal(true);
+    };
+
     return (
-        <div>
+        <main>
             <div className="title">
                 <h1>Login page</h1>
             </div>
@@ -85,12 +91,13 @@ function Login() {
                     <input type="password" name="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} /><br />
 
                     <button type="submit">Login</button><br />
-                    {error && <p>{error}</p>}
-                    <a href="/forgot-password">Click here to forgot your password</a><br />
+                    {error && <p style={{ color: 'red' }}>{error}</p>}
+                    <a href="#" onClick={handleForgotPassword}>Click here to forgot your password</a><br />
                     <a href="/register">Click here if you dont have an account</a>
                 </form>
             </div>
-        </div>
+            <ForgotPasswordModal isOpen={showModal} onClose={() => setShowModal(false)}></ForgotPasswordModal>
+        </main>
     );
 }
 
